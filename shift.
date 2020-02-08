@@ -1,0 +1,203 @@
+#!/usr/bin bash -l
+#=======================================================================
+# shift      ### determines how much frames must be translated to    ###
+#            ### make pore coordinate values unimodal                ###
+#_______________________________________________________________________
+
+cut=11
+
+FR=`sed -n '/      0.000/{=;q}' twatc.xvg`
+
+tail -n +${FR} twatc.xvg  | awk '{printf "%0.1d\n", $2}' | sort -k1,1n | uniq -c | grep -v nan > datax
+lines=`cat datax | wc -l`
+j=1
+matchx=0
+firstx=0
+transx=0
+until [ ${j} -gt ${lines} ]; do
+  patch=$(awk "NR==$j {print \$2}" datax)
+  if [ ${matchx} -eq ${patch} ]; then
+    molcs=$(awk "NR==$j {print \$1}" datax)
+    if [ ${molcs} -gt ${cut} ]; then
+      if [ ${firstx} -eq ${matchx} ]; then
+        let "j=j+1"
+        let "matchx=matchx+1"
+        let "firstx=matchx"
+      else
+        gapx=$(( ${patch}-${firstx} ))
+        transx=$(echo "scale=2;${patch} - ${gapx}/2" | bc)
+        break 1
+      fi
+    else
+      let "j=j+1"
+    fi
+  else
+    molcs=$(awk "NR==$j {print \$1}" datax)
+    if [ ${molcs} -gt ${cut} ]; then
+      if [ ${firstx} -eq 0 -a ${patch} -lt 3 -a ${j} -le 2 ]; then
+        break 1
+      else
+        gapx=$(( ${patch}-${firstx} ))
+        transx=$(echo "scale=2;${patch} - ${gapx}/2" | bc)
+        break 1
+      fi
+    else
+      if [ ${firstx} -gt 0 ]; then
+        transx=$(echo "scale=2;${matchx} + .25" | bc)
+        break 1
+      else
+        let "matchx=matchx+1"
+      fi
+    fi
+  fi
+done
+if [ ${j} -gt ${lines} ]; then
+  transx=$(echo "scale=2;${patch} + 1.5" | bc)
+fi
+
+tail -n +${FR} twatc.xvg  | awk '{printf "%0.1d\n", $3}' | sort -k1,1n | uniq -c | grep -v nan > datay
+lines=`cat datay | wc -l`
+j=1
+matchy=0
+firsty=0
+transy=0
+until [ $j -gt $lines ]; do
+  patch=$(awk "NR==$j {print \$2}" datay)
+  if [ ${matchy} -eq ${patch} ]; then
+    molcs=$(awk "NR==$j {print \$1}" datay)
+    if [ ${molcs} -gt ${cut} ]; then
+      if [ ${firsty} -eq ${matchy} ]; then
+        let "j=j+1"
+        let "matchy=matchy+1"
+        let "firsty=matchy"
+      else
+        gapy=$(( ${patch}-${firsty} ))
+        transy=$(echo "scale=2;${patch} - ${gapy}/2" | bc)
+        break 1
+      fi
+    else
+      let "j=j+1"
+    fi
+  else
+    molcs=$(awk "NR==$j {print \$1}" datay)
+    if [ ${molcs} -gt ${cut} ]; then
+      if [ ${firsty} -eq 0 -a ${patch} -lt 3 -a ${j} -le 2 ]; then
+        break 1
+      else
+        gapy=$(( ${patch}-${firsty} ))
+        transy=$(echo "scale=2;${patch} - ${gapy}/2" | bc)
+        break 1
+      fi
+    else
+      if [ ${firsty} -gt 0 ]; then
+        transy=$(echo "scale=2;${matchy} + .25" | bc)
+        break 1
+      else
+        let "matchy=matchy+1"
+      fi
+    fi
+  fi
+done
+if [ ${j} -gt ${lines} ]; then
+  transy=$(echo "scale=2;${patch} + 1.5" | bc)
+fi
+
+echo top shift "${transx}" "${transy}"
+if ! [ "${transx}" == "0" -a "${transy}" == "0" ]; then
+  if [ "${1}" == "T" -o "${1}" == "run" ]; then
+    gmx trjconv -f trajout.xtc -s topol.tpr -o trajoutt.xtc -pbc mol -trans -${transx} -${transy} 0 < <(echo 0)
+  fi
+fi
+
+FR=`sed -n '/      0.000/{=;q}' bwatc.xvg`
+
+tail -n +${FR} bwatc.xvg  | awk '{printf "%0.1d\n", $2}' | sort -k1,1n | uniq -c | grep -v nan > dabax
+lines=`cat dabax | wc -l`
+j=1
+matchx=0
+firstx=0
+transx=0
+until [ $j -gt $lines ]; do
+  patch=$(awk "NR==$j {print \$2}" dabax)
+  if [ ${matchx} -eq ${patch} ]; then
+    molcs=$(awk "NR==$j {print \$1}" dabax)
+    if [ ${molcs} -gt ${cut} ]; then
+      if [ ${firstx} -eq ${matchx} ]; then
+        let "j=j+1"
+        let "matchx=matchx+1"
+        let "firstx=matchx"
+      else
+        gapx=$(( ${patch}-${firstx} ))
+        transx=$(echo "scale=2;${patch} - ${gapx}/2" | bc)
+        break 1
+      fi
+    else
+      let "j=j+1"
+    fi
+  else
+    molcs=$(awk "NR==$j {print \$1}" dabax)
+    if [ ${molcs} -gt ${cut} ]; then
+      if [ ${firstx} -eq 0 -a ${patch} -lt 2 ]; then
+        break 1
+      else
+        gapx=$(( ${patch}-${firstx} ))
+        transx=$(echo "scale=2;${patch} - ${gapx}/2" | bc)
+        break 1
+      fi
+    else
+      let "matchx=matchx+1"
+    fi
+  fi
+done
+if [ ${j} -gt ${lines} ]; then
+  transx=$(echo "scale=2;${patch} + 1.5" | bc)
+fi
+
+tail -n +${FR} bwatc.xvg  | awk '{printf "%0.1d\n", $3}' | sort -k1,1n | uniq -c | grep -v nan > dabay
+lines=`cat dabay | wc -l`
+j=1
+matchy=0
+firsty=0
+transy=0
+until [ $j -gt $lines ]; do
+  patch=$(awk "NR==$j {print \$2}" dabay)
+  if [ ${matchy} -eq ${patch} ]; then
+    molcs=$(awk "NR==$j {print \$1}" dabay)
+    if [ ${molcs} -gt ${cut} ]; then
+      if [ ${firsty} -eq ${matchy} ]; then
+        let "j=j+1"
+        let "matchy=matchy+1"
+        let "firsty=matchy"
+      else
+        gapy=$(( ${patch}-${firsty} ))
+        transy=$(echo "scale=2;${patch} - ${gapy}/2" | bc)
+        break 1
+      fi
+    else
+      let "j=j+1"
+    fi
+  else
+    molcs=$(awk "NR==$j {print \$1}" dabay)
+    if [ ${molcs} -gt ${cut} ]; then
+      if [ ${firsty} -eq 0 -a ${patch} -lt 2 ]; then
+        break 1
+      else
+        gapy=$(( ${patch}-${firsty} ))
+        transy=$(echo "scale=2;${patch} - ${gapy}/2" | bc)
+        break 1
+      fi
+    else
+      let "matchy=matchy+1"
+    fi
+  fi
+done
+if [ ${j} -gt ${lines} ]; then
+  transy=$(echo "scale=2;${patch} + 1.5" | bc)
+fi
+
+echo bottom shift "${transx}" "${transy}"
+if ! [ "${transx}" == "0" -a "${transy}" == "0" ]; then
+  if [ "${1}" == "B" -o "${1}" == "run" ]; then
+    gmx trjconv -f trajout.xtc -s topol.tpr -o trajoutb.xtc -pbc mol -trans -${transx} -${transy} 0 < <(echo 0)
+  fi
+fi
