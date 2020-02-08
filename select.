@@ -1,0 +1,310 @@
+#!/usr/bin/bash -l
+#=====================================================
+# select.    ### script for measuring and counting ###
+#            ### water and ions                    ###
+#
+# $1         routine name
+#   options: twat,twatt,twatc,twattc,tca,tan,tcat,tant
+#            bwat,bwatt,bwatc,bwattc,bca,ban,bcat,bant
+#_____________________________________________________
+
+if [ -s trajout0.xtc -o -s trajout0c.xtc ]; then
+  if [ -s trajout0c.xtc ]; then
+    tfyle="trajout0c.xtc"
+  else
+    tfyle="trajout0.xtc"
+  fi
+else
+  tfyle="trajout.xtc"
+fi
+if [ -s trajout1.xtc -o -s trajout1c.xtc ]; then
+  if [ -s trajout1c.xtc ]; then
+    bfyle="trajout1c.xtc"
+  else
+    bfyle="trajout1.xtc"
+  fi
+else
+  bfyle="trajout.xtc"
+fi
+
+case ${1} in
+  twat)
+    if [ -s twat.xvg ]; then source ../jobs/roll. twat.xvg; fi
+    gmx select -f ${tfyle} -s topol.tpr -os twat.xvg -select \
+                                                           ' \
+    lhgrps = resname "DOPC" and resid < 10000 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid < 1000 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname TIP3 and ( (z+0.75) > zl and (z-0.75) < zl ) and radius < 1.5;'
+    ;;
+  twatt)
+    if [ -s twatt.xvg ]; then source ../jobs/roll. twatt.xvg; fi
+    gmx select -f ${tfyle} -s topol.tpr -os twatt.xvg -select \
+                                                            ' \
+    lhgrps = resname "DOPC" and resid < 10000 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid < 10000 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname TIP3 and ( (z+1.5) > zl and (z-1.5) < zl ) and radius < 1.5;'
+    ;;
+  twatc)
+    if [ -s twatc.xvg ]; then source ../jobs/roll. twatc.xvg; fi
+    gmx trajectory -f ${tfyle} -s topol.tpr -ox twatc.xvg -pbc yes -select \
+                                                                           ' \
+    lhgrps = resname "DOPC" and resid < 10000 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of resname TIP3 and ( (z+.45)>zm and (z-.45)<zm ); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid < 10000 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+    core   = resname TIP3 and ( (z+.75)>zl and (z-.75)<zl ) and radius < 1.5; \
+                            \
+    cog of core;'
+    ;;
+  twctc)
+    if [ -s twctc.xvg ]; then source ../jobs/roll. twctc.xvg; fi
+    gmx trajectory -f ${tfyle} -s topol.tpr -ox twctc.xvg -pbc yes -select \
+                                                                           ' \
+    lhgrps = resname "DOPC" and resid < 10000 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of resname TIP3 and ( (z+.45)>zm and (z-.45)<zm ); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid < 10000 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+    core   = resname TIP3 and ( (z+.75)>zl and (z-.75)<zl ) and radius < 1.5; \
+                            \
+    cog of core;'
+    ;;
+  tca)
+    if [ -s tca.xvg ]; then source ../jobs/roll. tca.xvg; fi
+    gmx select -f ${tfyle} -s topol.tpr -os tca.xvg -select \
+                                                             ' \
+    lhgrps = resname "DOPC" and resid < 10000 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid < 10000 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname SOD and ( (z+0.75) > zl and (z-0.75) < zl ) and radius < 1.5;'
+    ;;
+  tan)
+    if [ -s tan.xvg ]; then source ../jobs/roll. tan.xvg; fi
+    gmx select -f ${tfyle} -s topol.tpr -os tan.xvg -select \
+                                                             ' \
+    lhgrps = resname "DOPC" and resid < 10000 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid < 10000 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname CLA and ( (z+0.75) > zl and (z-0.75) < zl ) and radius < 1.5;'
+    ;;
+  tcat)
+    if [ -s tcat.xvg ]; then source ../jobs/roll. tcat.xvg; fi
+    gmx select -f ${tfyle} -s topol.tpr -os tcat.xvg -select \
+                                                              ' \
+    lhgrps = resname "DOPC" and resid < 10000 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid < 10000 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname SOD and ( (z+1.5) > zl and (z-1.5) < zl ) and radius < 1.5;'
+    ;;
+  tant)
+    if [ -s tant.xvg ]; then source ../jobs/roll. tany.xvg; fi
+    gmx select -f ${tfyle} -s topol.tpr -os tant.xvg -select \
+                                                              ' \
+    lhgrps = resname "DOPC" and resid < 10000 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid < 10000 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname CLA and ( (z+1.5) > zl and (z-1.5) < zl ) and radius < 1.5;'
+    ;;
+  bwat)
+    if [ -s bwat.xvg ]; then source ../jobs/roll. bwat.xvg; fi
+    gmx select -f ${bfyle} -s topol.tpr -os bwat.xvg -select \
+                                                           ' \
+    lhgrps = resname "DOPC" and resid > 9999 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid > 9999 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname TIP3 and ( (z+0.75) > zl and (z-0.75) < zl ) and radius < 1.5;'
+   ;;
+  bwatt)
+    if [ -s bwatt.xvg ]; then source ../jobs/roll. bwatt.xvg; fi
+    gmx select -f ${bfyle} -s topol.tpr -os bwatt.xvg -select \
+                                                            ' \
+    lhgrps = resname "DOPC" and resid > 9999 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid > 9999 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname TIP3 and ( (z+1.5) > zl and (z-1.5) < zl ) and radius < 1.5;'
+   ;;
+  bwatc)
+    if [ -s bwatc.xvg ]; then source ../jobs/roll. bwatc.xvg; fi
+    gmx trajectory -f ${bfyle} -s topol.tpr -ox bwatc.xvg -select \
+                                                                   ' \
+    lhgrps = resname "DOPC" and resid > 9999 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of resname TIP3 and ( (z+.45)>zm and (z-.45)<zm ); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid > 9999 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+    core   = resname TIP3 and ( (z+.75)>zl and (z-.75)<zl ) and radius < 1.5; \
+                            \
+    cog of core;'
+    ;;
+  bwctc)
+    if [ -s bwctc.xvg ]; then source ../jobs/roll. bwctc.xvg; fi
+    gmx trajectory -f ${bfyle} -s topol.tpr -ox bwctc.xvg -select \
+                                                                   ' \
+    lhgrps = resname "DOPC" and resid > 9999 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of resname TIP3 and ( (z+.45)>zm and (z-.45)<zm ); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid > 9999 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+    core   = resname TIP3 and ( (z+.75)>zl and (z-.75)<zl ) and radius < 1.5; \
+                            \
+    cog of core;'
+    ;;
+  bca)
+    if [ -s bca.xvg ]; then source ../jobs/roll. bca.xvg; fi
+    gmx select -f ${bfyle} -s topol.tpr -os bca.xvg -select \
+                                                             ' \
+    lhgrps = resname "DOPC" and resid > 9999 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid > 9999 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname SOD and ( (z+0.75) > zl and (z-0.75) < zl ) and radius < 1.5;'
+   ;;
+  ban)
+    if [ -s ban.xvg ]; then source ../jobs/roll. ban.xvg; fi
+    gmx select -f ${bfyle} -s topol.tpr -os ban.xvg -select \
+                                                             ' \
+    lhgrps = resname "DOPC" and resid > 9999 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid > 9999 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname CLA and ( (z+0.75) > zl and (z-0.75) < zl ) and radius < 1.5;'
+   ;;
+  bcat)
+    if [ -s bcat.xvg ]; then source ../jobs/roll. bcat.xvg; fi
+    gmx select -f ${bfyle} -s topol.tpr -os bcat.xvg -select \
+                                                              ' \
+    lhgrps = resname "DOPC" and resid > 9999 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid > 9999 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname SOD and ( (z+1.5) > zl and (z-1.5) < zl ) and radius < 1.5;'
+   ;;
+  bant)
+    if [ -s bant.xvg ]; then source ../jobs/roll. bant.xvg; fi
+    gmx select -f ${bfyle} -s topol.tpr -os bant.xvg -select \
+                                                              ' \
+    lhgrps = resname "DOPC" and resid > 9999 and (name "P.*" or name "N.*" or name "O." or name "O[12]."); \
+    zm     = z of cog of lhgrps; \
+    wcog   = cog of (resname TIP3 and (z+.45) > zm and (z-.45) < zm); \
+    xw     = x of wcog; \
+    yw     = y of wcog; \
+    zw     = z of wcog; \
+    radius = ((x-xw)^2+(y-yw)^2)^0.5; \
+    lipids = resname "DOPC" and resid > 9999 and radius < 1.5; \
+    lcog   = cog of lipids; \
+    zl     = z of lcog;     \
+                            \
+    dyn_mol_cog of resname CLA and ( (z+1.5) > zl and (z-1.5) < zl ) and radius < 1.5;'
+   ;;
+  *)
+    echo select : ${1} is not a valid case
+    ;;
+esac
