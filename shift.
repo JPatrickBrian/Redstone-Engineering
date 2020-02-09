@@ -105,7 +105,7 @@ fi
 echo top shift "${transx}" "${transy}"
 if ! [ "${transx}" == "0" -a "${transy}" == "0" ]; then
   if [ "${1}" == "T" -o "${1}" == "run" ]; then
-    gmx trjconv -f trajout.xtc -s topol.tpr -o trajoutt.xtc -pbc mol -trans -${transx} -${transy} 0 < <(echo 0)
+    gmx trjconv -f trajout.xtc -s topol.tpr -o trajout0.xtc -pbc mol -trans -${transx} -${transy} 0 < <(echo 0)
   fi
 fi
 
@@ -198,6 +198,6 @@ fi
 echo bottom shift "${transx}" "${transy}"
 if ! [ "${transx}" == "0" -a "${transy}" == "0" ]; then
   if [ "${1}" == "B" -o "${1}" == "run" ]; then
-    gmx trjconv -f trajout.xtc -s topol.tpr -o trajoutb.xtc -pbc mol -trans -${transx} -${transy} 0 < <(echo 0)
+    gmx trjconv -f trajout.xtc -s topol.tpr -o trajout1.xtc -pbc mol -trans -${transx} -${transy} 0 < <(echo 0)
   fi
 fi
