@@ -3,7 +3,7 @@
 # select.    ### script for measuring and counting ###
 #            ### water and ions                    ###
 #
-# $1         routine name
+# $1         subscript name
 #   options: twat,twatt,twatc,twattc,tca,tan,tcat,tant
 #            bwat,bwatt,bwatc,bwattc,bca,ban,bcat,bant
 #_____________________________________________________
