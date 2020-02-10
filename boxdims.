@@ -1,0 +1,38 @@
+#!/bin/bash -l
+#==================================================================================
+# boxdims.   ### Calculates the average simulation box dimensions and average   ###
+#            ### coordinates of the simulation box center                       ###
+#
+# $1         Simulation ensemble
+#   options: <null> - check .mdp file to determine
+#            npt - calculate values from energy.xvg file
+#            nvt - calculate values from dimensions in conf.gro file
+#__________________________________________________________________________________
+
+ARG1=${1:-'mt'}
+
+if [ "${ARG1}" == "mt" ]; then
+  if [ `grep -m 1 "pcoupl" mdout.mdp | awk '{print $3}'` == "no" ]; then
+    ARG1="nvt"
+  else
+    ARG1="npt"
+  fi
+fi
+
+case ${ARG1} in
+  npt)
+
+    if [ -s "energy.xvg" ]; then source ../jobs/roll. energy.xvg; fi
+
+    gmx energy < <(echo -e "Box-X\nBox-Y\nBox-Z\n \n") | grep Box- | awk '{print $2}' | paste - - - > boxdims.xvg
+    rm energy.xvg
+    gmx energy < <(echo -e "Box-X\nBox-Y\nBox-Z\n \n") | grep Box- | awk '{print $2/2}' | paste - - - > boxcntr.xvg
+    rm energy.xvg
+  ;;
+  nvt)
+
+    tail -n 1 conf.gro > boxdims.xvg
+    tail -n 1 conf.gro | awk '{print $1/2, $2/2, $3/2}' > boxcntr.xvg
+
+  ;;
+esac
