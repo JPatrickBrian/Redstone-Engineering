@@ -1,16 +1,17 @@
 #!/usr/bin bash -l
 #==============================================================
-# Bfintegr8.awk  ### performs brute force calculation of    ###
-#                ### electric field at location of each bin ###
-#                ### in simulation from charge in each bin  ###
-#                                                           ###
-# $1    number of bins in z direction                       ###
-# $2    charge file to integrate                            ###
-# $3    output file name - outputs 2 sections, 1st is field ###
-#                          on just that particular bin      ###
-#                          2nd is total field, i.e. accumu- ###
-#                          lated field from pb to this posn ###
-#
+# Bfintegr8.awk ### performs brute force calculation of     ###
+#               ### electric field at location of each bin  ###
+#               ### in simulation from charge in each bin   ###
+# parameters                                                
+# $1    number of bins in z direction                       
+# $2    charge file to integrate                            
+# $3    output file name - outputs 2 sections, 1st is field on
+#                          just that particular bin      
+#                          2nd is total field, i.e. accumulated
+#                          field from pb to this posn 
+#   #!NOTE - the computational cost of this script scales as N6
+#            of parameter $1. it gets very expensive very quick
 #______________________________________________________________
 
 ARG1=${1:-'50'}
