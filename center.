@@ -1,0 +1,95 @@
+#!/bin/bash -l
+#================================================
+# center.    ### script for centering pores   ###
+#            ### in trajectories              ###
+# parameters
+# $1         channel to center
+#   options: 0 - channel 0 in the top membrane
+#            1 - channel 1 in the bottom membrane
+#________________________________________________
+
+case ${1} in
+ 0)
+   if [ -s trajout0.xtc ]; then
+     tfyle="trajout0.xtc"
+   else
+     tfyle="trajout.xtc"
+   fi
+
+   if ! ( [ -a boxcntr.xvg ] ); then
+     source ../jobs/boxdims.
+   fi
+
+   declare -a boxcntr
+   boxcntr=($(cat boxcntr.xvg))
+
+   if [ "${tfyle}" == "trajout0.xtc" -a ${tfyle} -nt "twatc.xvg" ]; then
+     source ../jobs/roll. twatc.xvg
+     source ../jobs/select. twatc
+   fi
+
+   if ! ( [ -s twatc.xvg ] ); then source ../jobs/select. twatc; fi
+
+   s ../jobs/trans. ${boxcntr[0]} ${boxcntr[1]} ${boxcntr[2]} twatc.xvg
+
+   gmx trjconv -f ${tfyle} -o /local/scratch/temp.gro -pbc mol -sep -exec 'source ../jobs/translate.' < <(echo 0)
+
+   if [ -s "trajout0c.xtc" ]; then source ../jobs/roll. trajout0c.xtc; fi
+
+   gmx trjcat -f /local/scratch/tump{0..2000}.xtc -o trajout0c.xtc
+
+   rm /local/scratch/tump*.xtc
+
+   tfyle="trajout0c.xtc"
+   source ../jobs/select. twatc
+   s ../jobs/trans. ${boxcntr[0]} ${boxcntr[1]} ${boxcntr[2]} twatc.xvg
+   gmx trjconv -f ${tfyle} -o /local/scratch/temp.gro -pbc mol -sep -exec 'source ../jobs/translate.' < <(echo 0)
+   source ../jobs/roll. trajout0c.xtc
+   gmx trjcat -f /local/scratch/tump{0..2000}.xtc -o trajout0c.xtc
+   rm /local/scratch/tump*.xtc
+   ;;
+
+ 1)
+   if [ -s trajout1.xtc ]; then
+     bfyle="trajout1.xtc"
+   else
+     bfyle="trajout.xtc"
+   fi
+
+   if ! ( [ -a boxcntr.xvg ] ); then
+     source ../jobs/boxdims.
+   fi
+
+   declare -a boxcntr
+   boxcntr=($(cat boxcntr.xvg))
+
+   if [ "${bfyle}" == "trajout1.xtc" -a ${bfyle} -nt "bwatc.xvg" ]; then
+     source ../jobs/roll. bwatc.xvg
+     source ../jobs/select. bwatc
+   fi
+
+   if ! ( [ -s bwatc.xvg ] ); then source ../jobs/select. bwatc; fi
+
+   source ../jobs/trans. ${boxcntr[0]} ${boxcntr[1]} ${boxcntr[2]} bwatc.xvg
+
+   gmx trjconv -f ${bfyle} -o /local/scratch/temp.gro -pbc mol -sep -exec 'source ../jobs/translate.' < <(echo 0)
+
+   if [ -s "trajout1c.xtc" ]; then source ../jobs/roll. trajout1c.xtc; fi
+
+   gmx trjcat -f /local/scratch/tump{0..2000}.xtc -o trajout1c.xtc
+
+   rm /local/scratch/tump*.xtc
+
+   bfyle="trajout1c.xtc"
+   source ../jobs/select. bwatc
+   source ../jobs/trans. ${boxcntr[0]} ${boxcntr[1]} ${boxcntr[2]} bwatc.xvg
+   gmx trjconv -f ${bfyle} -o /local/scratch/temp.gro -pbc mol -sep -exec 'source ../jobs/translate.' < <(echo 0)
+   source ../jobs/roll. trajout1c.xtc
+   gmx trjcat -f /local/scratch/tump{0..2000}.xtc -o trajout1c.xtc
+   rm /local/scratch/tump*.xtc
+   ;;
+
+ *)
+   echo center : ${1} is not a valid case
+   ;;
+esac
