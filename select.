@@ -1,4 +1,4 @@
-#!/usr/bin/bash -l
+#!/bin/bash -l
 #=====================================================
 # select.    ### script for measuring and counting ###
 #            ### water and ions                    ###
