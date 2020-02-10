@@ -1,0 +1,18 @@
+#!/bin/bash -l
+#=======================================================
+# translate. ### translate one .gro file and append  ###
+#            ### it to output .xtc file              ###
+#
+# $1         index of .gro file to translate 0-?
+#   #!NOTE - this script is executed by the -exec option
+#            of trjconv. See the GROMACS documenation
+#            and methods file of this repository for
+#            explanation.
+#_______________________________________________________
+
+line=$(( $1+1 ))
+trans=$(sed "$line!d" trans.xvg)
+
+/scratch/scratch/jpbria01/software/gromacs-2019.2.install/bin/gmx_mpi trjconv -f /local/scratch/temp${1}.gro -n index.ndx -o /local/scratch/tump${1}.xtc -pbc mol -trans $trans 0<<< 0
+
+rm /local/scratch/temp${1}.gro
