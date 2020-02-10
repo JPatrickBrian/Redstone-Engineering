@@ -3,7 +3,7 @@
 # roll.      ### adds index numbers to file names to prevent overwrite  ###
 #            ### this preserves the file extension so gromacs utilities ###
 #            ### will still accept them as input files                  ###
-#
+# parameters
 # $1         file name to roll
 #
 #   example: with files conf.gro & conf.00.gro, source roll. conf.gro
