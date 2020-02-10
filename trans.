@@ -1,0 +1,14 @@
+#!/bin/bash -l
+#======================================================================================
+# trans.     ### calculates the rectilinear translation values for every frame in a ###
+#            ### trajectory to center the biostructure of interest                  ###
+# parameters
+# $1         x coordinate of average box center, cannot be NaN
+# $2         y coordinate of average box center, cannot be NaN
+# $3         z coordinate of average box center, cannot be NaN
+# $4         file name of biostructure center coordinates for each frame
+#______________________________________________________________________________________
+
+FR=`sed -n '/      0.000/{=;q}' ${4}`
+
+tail -n +${FR} ${4} | awk "{px[NR]=\$2;py[NR]=\$3;pz[NR]=\$4} END {for (i=1;i<=2001;i++) {print $1-px[i],$2-py[i],$3-pz[i]} }" > trans.xvg
