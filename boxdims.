@@ -2,7 +2,7 @@
 #==================================================================================
 # boxdims.   ### Calculates the average simulation box dimensions and average   ###
 #            ### coordinates of the simulation box center                       ###
-#
+# parameters
 # $1         Simulation ensemble
 #   options: <null> - check .mdp file to determine
 #            npt - calculate values from energy.xvg file
