@@ -6,6 +6,8 @@
 # $1         subscript name
 #   options: twat,twatt,twatc,twattc,tca,tan,tcat,tant
 #            bwat,bwatt,bwatc,bwattc,bca,ban,bcat,bant
+#   #!NOTE - several options require GROMACS 2019 or
+#            higher (gmx trajectory)
 #_____________________________________________________
 
 if [ -s trajout0.xtc -o -s trajout0c.xtc ]; then
