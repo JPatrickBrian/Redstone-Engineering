@@ -6,3 +6,5 @@ I am a doctoral candidate in chemical engineering at the University of Louisvill
 Primarily my research is simulation of biophysical processes related to membranes, membrane proteins and the role of the electric field in establishing equilibrium membrane/protein structures and the modulation of membrane protein channel transport. 
 # Scripts select. and shift.
 The use and explanation of the two files above are explained in the paper "Insights into the molecular mechanisms of electroporation from computational electrophysiology", in Biophysical Journal.
+# Electric flux mapping and Computational X-Rays
+The rest of the scripts in this repository here take the trajectory files produced by the select. and shift. scripts and do additional processing to center the biostructure of interest in every frame. The resulting "centered" trajectories can then be processed to map the non-uniform electric flux and to produce data files we call Computational X-Rays. Files to describe the methods of implementation and figures resulting from the analysis will also be posted.
