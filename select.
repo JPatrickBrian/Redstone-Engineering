@@ -2,7 +2,7 @@
 #=====================================================
 # select.    ### script for locating and counting  ###
 #            ### pores, water and ions             ###
-#
+# parameters
 # $1         subscript name
 #   options: twat,twatt,twatc,twattc,tca,tan,tcat,tant
 #            bwat,bwatt,bwatc,bwattc,bca,ban,bcat,bant
