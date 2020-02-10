@@ -1,0 +1,39 @@
+#!/bin/bash -l
+#==========================================================================
+# roll.      ### adds index numbers to file names to prevent overwrite  ###
+#            ### this preserves the file extension so gromacs utilities ###
+#            ### will still accept them as input files                  ###
+#
+# $1         file name to roll
+#
+#   example: with files conf.gro & conf.00.gro, source roll. conf.gro
+#            moves previous files to conf.00.gro & conf.01.gro
+#            therefore lowest index "00" is always most recent file
+#__________________________________________________________________________
+
+if [[ $# != "0" ]]; then
+  if [[ $1 =~ "." ]]; then
+    fe=${1##*.}
+    bn=${1%.*}
+  else
+    fe=''
+    bn=${1%.*}
+  fi
+  if [[ "$fe" != '' ]]; then
+    fe=".$fe"
+  fi
+  if [[ -s $1 ]]; then
+    if [ ! -s $bn.00$fe ]; then
+      mv $1 $bn.00$fe
+    else
+      for i in {98..0}
+        do
+        if [ -s $bn.$(printf "%02d" $i)$fe ]; then
+          let "j = i + 1"
+          mv $bn.$(printf "%02d" $i)$fe $bn.$(printf "%02d" $j)$fe
+        fi
+      done
+      mv $1 $bn.00$fe
+    fi
+  fi
+fi
