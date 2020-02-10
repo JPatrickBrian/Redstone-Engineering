@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #=====================================================
-# select.    ### script for measuring and counting ###
-#            ### water and ions                    ###
+# select.    ### script for locating and counting  ###
+#            ### pores, water and ions             ###
 #
 # $1         subscript name
 #   options: twat,twatt,twatc,twattc,tca,tan,tcat,tant
