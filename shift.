@@ -2,7 +2,7 @@
 #=======================================================================
 # shift.     ### determines how much frames must be translated to    ###
 #            ### make pore coordinate values unimodal and does so    ###
-#
+# parameters
 # $1         Processing Option
 #   options: 0 - consider membrane 0 i.e. the top membrane
 #            1 - consider membrane 1 i.e. the bottom membrane
