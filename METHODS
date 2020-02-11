@@ -1,0 +1,30 @@
+#==========================================================================================================================
+# METHODS    ### These scripts and processes were developed over a two year period in support of my doctoral research.
+#            ### Their development was an evolutionary process. None of this work was imagined or planned in the beginning.
+#            ### Unexpected results were encountered, and processes were developed to better measure and verify the initial
+#            ### indications. This process is nowhere close to being complete. There is much more work to do to better
+#            ### understand what has been discovered, and to bring more utility to the work that has been completed so far.
+#            ###
+#            ### It is beyond the scope of this document to explain everything that is taking place. The purpose of this
+#            ### document is to outline the sequence of steps required to implement these tools on simulation trajectories
+#            ### to produce the resulting analysis. At some point, I hope to provide a single master script and simulation
+#            ### setup that adopters could run on their systems to get a complete "under the hood" look at all the
+#            ### mechanics.
+#            ###
+#            ### The first step to understanding this work would be to read my paper, Insights into the molecular
+#            ### mechanisms of electroporation from computational elecrophysiology, in Biophysical Journal, especially the
+#            ### supporting information. This will give an introduction of the scripts select. and shift. These enable a
+#            ### very accurate count of water molecules in a membrane pore on a frame by frame basis. They also prepare the
+#            ### trajectories for the following processing.
+#            ###
+#            ### The title of my dissertation proposal was "Mapping three-dimensional interactions between biomolecules and
+#            ### electric fields". To do this, I needed to create trajectories that had all extraneous motion relative to
+#            ### the biostructure I wanted to study the effect of the non-linear electric fields on, and have that
+#            ### biostructure perfectly centered in the middle of the simulation box. While I was checking the raw data
+#            ### files at the end of those steps to verify the integrity of that processing, I created an image I had never
+#            ### imagined creating. We have dubbed these images "Computational X-Rays". There is lots of work yet to fully
+#            ### develop the cababilities of the technique, however we have produced an image that should fully demonstrate
+#            ### the nature of what will come of that work.
+#
+#
+#_____________________________________________________
