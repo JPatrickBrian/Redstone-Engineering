@@ -46,6 +46,11 @@
 #     source ../jobs/select. bwatc
 #     source ../jobs/shift. run
 #     source ../jobs/count.
+#            ###
+#            ### Now for each membrane pore (each of two membranes in the sim have one pore), a trajectory is produced
+#            ### in which the center of the pore is translated to the exact center of the simulation box. From these
+#            ### trajectories, a set of coordinates for every atom in every frame of the simulation is created (coord.xvg).
+#            ### 
 #
 #
 #
