@@ -50,8 +50,16 @@
 #            ### Now for each membrane pore (each of two membranes in the sim have one pore), a trajectory is produced
 #            ### in which the center of the pore is translated to the exact center of the simulation box. From these
 #            ### trajectories, a set of coordinates for every atom in every frame of the simulation is created (coord.xvg).
-#            ### 
-#
-#
-#
+#            ### This file is process by 3dchrg4A.awk to produce a composite charge of every volume element in the
+#            ### simulation. This step is effectively discovering the long-term, steady state conformation of the
+#            ### biostructure. Do not apply this technique to trajectories that do not simulate steady state conditions.
+#            ### The file produced is then processed by Bfintegr8.awk to calculate the electric fields and potentials
+#            ### associated with this steady state structure. Since my research at this level of analysis focuses on only
+#            ### one of the two pores present in the simulation, the file names do not accomodate doing this analysis
+#            ### simultaneously on both pores without conflict. In this example, the channel 0 pore (top) is being
+#            ### processed
+#     source ../jobs/center. 0
+#     gmx trajectory -f trajout0c.xtc -ox coord.xvg -n index.ndx < <(echo -e 'System\n')
+#     source ../jobs/3dchrg4A.awk 50 chrgs.xvg chrg5A.xvg 0 4 10 11
+#     source ../jobs/Bfintegr8.awk chrg5A.xvg
 #_____________________________________________________
