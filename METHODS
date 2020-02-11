@@ -25,6 +25,28 @@
 #            ### imagined creating. We have dubbed these images "Computational X-Rays". There is lots of work yet to fully
 #            ### develop the cababilities of the technique, however we have produced an image that should fully demonstrate
 #            ### the nature of what will come of that work.
+#            ###
+#            ### I think the best way to approach this is to show the sequence of commands to produce the final images to
+#            ### be generated. I'll intersperse comments as needed.
+#            ###
+#            ### These steps run the initial simulation, then do a quick (cheap computationally) analysis to create some
+#            ### plots that can be reviewed to make sure everything looks OK.
+#     gmx mdrun -cpi
+#     gmx trjconv -f traj_comp.xtc -o trajout.xtc -pbc mol -skip 10 < <(echo -e "System\n")
+#     gmx select -f trajout.xtc -n index.ndx -s topol.tpr -os waters.xvg -select 'dyn_mol_com of resname TIP3
+#            and ((z+.75) > (z of com of (group DOPC and name P)) and (z-.75) < (z of com of (group DOPC and name P)))'
+#     gmx select -f trajout.xtc -n index.ndx -s topol.tpr -os watersb.xvg -select 'dyn_mol_com of resname TIP3
+#            and ((z+.75) > (z of com of (group D2PC and name P)) and (z-.75) < (z of com of (group D2PC and name P)))'
+#     source ../jobs/cross.
+#     gnuplot ../jobs/cross1
+#     gnuplot ../jobs/cross0
+#            ###
+#            ### The next steps make very accurate counts of membrane pore water molecules.
+#     source ../jobs/select. twatc
+#     source ../jobs/select. bwatc
+#     source ../jobs/shift. run
+#     source ../jobs/count.
+#
 #
 #
 #_____________________________________________________
