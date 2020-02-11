@@ -1,0 +1,45 @@
+#!/bin/bash -l
+#=====================================================
+# count.     ### count pore water molecules and    ###
+#            ### ions                              ###
+# parameters
+# $1         processing option
+#   options: <null> - count everything
+#            T  - count everything in channel 0 (top)
+#            t  - count waters in channel 0
+#            ti - count ions in channel 0
+#            B  - count everything in channel 1 (bot)
+#            t  - count waters in channel 1
+#            ti - count ions in channel 1
+#_____________________________________________________
+
+declare -a fyles
+fyles=(twat twatt tca tan tcat tant bwat bwatt bca ban bcat bant)
+
+i=0
+last=11
+if [ "${1}" == "T" ]; then
+  last=5
+elif [ "${1}" == "t" ]; then
+  last=1
+elif [ "${1}" == "ti" ]; then
+  i=2
+  last=5
+elif [ "${1}" == "B" ]; then
+  i=6
+elif [ "${1}" == "b" ]; then
+  i=6
+  last=7
+elif [ "${1}" == "bi" ]; then
+  i=8
+fi
+
+while [ ${i} -le ${last} ]; do
+  if [ -a ${fyles[$i]}.xvg ]; then rm ${fyles[$i]}.xvg; fi
+  source ../jobs/select. ${fyles[$i]}
+  let "i=i+1"
+done
+
+for i in {0..1} {6..7}; do
+  source ../jobs/stddev.awk ${fyles[$i]}.xvg > ${fyles[$i]}.std
+done
