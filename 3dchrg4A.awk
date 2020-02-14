@@ -1,21 +1,21 @@
 #!/bin/bash -l
-#====================================================================================
-# 3dchrg4A.awk ### calculate avg charge in bins of volume for a trajectory        ###
-#              ###                                                                ###
+#===================================================================================
+# 3dchrg4A.awk ### calculate avg charge in bins of volume for a trajectory       ###
+#              ###                                                               ###
 # parameters
-# $1          number of horizontal (x-y) slices to create along z axis (2-?)
-#    options: the output of this algorithm can be used to calculate non-uniform
-#             electric fields or to produce computational x-rays. since the
-#             computational cost of calculating electric fields scales as N6, and
-#             that algorithm must process all the slices created here, balancing
-#             resolution and computational time of both steps is required subject
-#             to the requirements and limitations of each system on which it is used.
-#             higher resolutions can be produced here if the intention is to
-#             produce computational x-rays since they incure negligible scaling
-# $2          name of file containing charges of each atom in system
-# $3          output filname containing bins of average charge for each system volume
-#             element
-#____________________________________________________________________________________
+# $1         number of horizontal (x-y) slices to create along z axis (2-?)
+#   options: the output of this algorithm can be used to calculate non-uniform
+#            electric fields or to produce computational x-rays. since the
+#            computational cost of calculating electric fields scales as N6, and
+#            that algorithm must process all the slices created here, balancing
+#            resolution and computational time of both steps is required subject
+#            to the requirements and limitations of each system on which it is used.
+#            higher resolutions can be produced here if the intention is to
+#            produce computational x-rays since they incure negligible scaling
+# $2         name of file containing charges of each atom in system
+# $3         output filname containing bins of average charge for each system volume
+#            element
+#___________________________________________________________________________________
 
 ARG1=${1:-'50'}
 ARG2=${2:-'chrgs2.xvg'}
