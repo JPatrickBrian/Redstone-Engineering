@@ -52,12 +52,32 @@
 #            ### trajectories, a set of coordinates for every atom in every frame of the simulation is created (coord.xvg).
 #            ### This file is used by script 3dchrg4A.awk to produce the composite electric charge map of the simulation 
 #            ### volume elements. Finally, this file is processed by Bfintegr8.awk to produce the electric field and
-#            ### potential maps. In this example, channel 0 (top) is being processed. #!NOTE: Since my work has focused at this
-#            ### point on the analysis of only one of the two pores, the file names would conflict if both pores were
-#            ### analyzed simultaneously.
+#            ### potential maps. In this example, channel 0 (top) is being processed. #!NOTE: Since my work has focused at
+#            ### this point on the analysis of only one of the two pores in any single simulation, the file names would
+#            ### conflict if both pores were analyzed simultaneously.
 #     source ../jobs/center. 0
 #     gmx trajectory -f trajout0c.xtc -ox coord.xvg -n index.ndx < <(echo -e 'System\n')
 #     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5A.xvg 1 4 10 11
-#     source ../jobs/Bfintegr8.awk 50 chrg5A.xvg 
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5H.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5N.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5C.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5P.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5W.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5R.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5T.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5Y.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5L.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5S.xvg 1 4 10 11
+#     source ../jobs/Bfintegr8.awk 50 chrg5A.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5H.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5N.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5C.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5P.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5W.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5R.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5T.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5Y.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5L.xvg
+#     source ../jobs/Bfintegr8.awk 50 chrg5S.xvg
 #     
 #_____________________________________________________
