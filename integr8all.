@@ -1,0 +1,76 @@
+#!/bin/bash -l
+#=======================================================
+# integr8all.  ### calcute all the electric fields   ###
+#              ###                                   ###
+# parameters
+# $1         Moiety to process
+#   options: <null> - all
+#            4A,4H,4N,4P,4W,4S,4C,4R,4T,4L,4Y
+# $2         number of bins in the z direction
+#   options: 2-?
+#_______________________________________________________
+
+ARG2=${2:-'50'}
+
+case ${1} in
+  4A)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}A.xvg fylr${ARG2:0:1}A.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4H)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}H.xvg fylr${ARG2:0:1}H.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4N)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}N.xvg fylr${ARG2:0:1}N.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4P)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}P.xvg fylr${ARG2:0:1}P.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4W)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}W.xvg fylr${ARG2:0:1}W.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4S)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}S.xvg fylr${ARG2:0:1}S.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4C)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}C.xvg fylr${ARG2:0:1}C.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4R)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}R.xvg fylr${ARG2:0:1}R.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4T)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}T.xvg fylr${ARG2:0:1}T.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4L)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}L.xvg fylr${ARG2:0:1}L.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  4A)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}Y.xvg fylr${ARG2:0:1}Y.xvg
+    s ../jobs/spltfld. ${ARG2:0:1} ${ARG1:0:1}
+  ;;
+  *)
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}A.xvg fylr${ARG2:0:1}A.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}H.xvg fylr${ARG2:0:1}H.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}N.xvg fylr${ARG2:0:1}N.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}P.xvg fylr${ARG2:0:1}P.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}W.xvg fylr${ARG2:0:1}W.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}S.xvg fylr${ARG2:0:1}S.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}C.xvg fylr${ARG2:0:1}C.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}R.xvg fylr${ARG2:0:1}R.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}T.xvg fylr${ARG2:0:1}T.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}L.xvg fylr${ARG2:0:1}L.xvg
+    s ../jobs/Bfintegr8.awk ${ARG2} chrg${ARG2:0:1}Y.xvg fylr${ARG2:0:1}Y.xvg
+    for s in A H N P W S C R T L Y; do
+      s ../jobs/spltfld. ${ARG2:0:1} ${s}
+    done
+  ;;
+esac
