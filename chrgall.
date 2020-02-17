@@ -1,0 +1,34 @@
+#!/bin/bash -l
+#==========================================================================================
+# chrgall.   ### This script takes the parameters that come from lchrgall. to calculate ###
+#            ### the charge files for the different simulation configurations that      ###
+#            ### exist. A more capable method would require a script that can determine ###
+#            ### the parameters from the topol.top file, but which pore channel to      ###
+#            ### examine (0 or 1) will remain a manual choice, possibly always since    ###
+#            ### the computational cost is so high for even 1 pore. This more capable   ###
+#            ### method has not been developed yet                                      ###
+# parameters
+# $1         number of vertical bins
+#   options: typically 50 or 100
+# $2         awk routine to execute
+#   options: 3dchrg4[AHNPWSCRTYL].awk
+# $3         atom charge file for this version of simulation topology
+#   options: whatever you have named your charge file
+# $4         output file name
+# $5         pore channel number to process
+#   options: 0 or 1
+# $6         number of alpha bath ions of each species
+#   explain: if alpha bath has 11 +tive and 11 -tive ions, (always neutral) enter 11
+# $7         number of beta bath ions of each species
+#__________________________________________________________________________________________
+
+Chr1=${1:-'50'}
+Chr2=${2:-'3dchrg4A.awk'}
+Chr3=${3:-'chrgs2.xvg'}
+Chr4=${4:-'test.xvg'}
+Chr5=${5:-'0'}
+Chr6=${6:-'0'}
+Chr7=${7:-'11'}
+Chr8=${8:-'11'}
+
+s ../jobs/${Chr2} ${Chr1} ${Chr3} ${Chr4} ${Chr5} ${Chr6} ${Chr7} ${Chr8}
