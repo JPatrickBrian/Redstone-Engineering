@@ -86,7 +86,7 @@ END	\
               if ( x<0      ) { x+=cols }
               if ( y<0      ) { y+=rows }
               if ( z<0      ) { z+=pags }
-              chrg[z*iz+x+y*iy+1]+=chrgs[i];
+              chrg[z*iz+x+y*iy+1]+=chrgs[k+i];
 	    }
             k=fr1
             for ( i=1; i<=34440+wa*3; i++ ) {
@@ -100,7 +100,7 @@ END	\
               if ( x<0      ) { x+=cols }
               if ( y<0      ) { y+=rows }
               if ( z<0      ) { z+=pags }
-              chrg[z*iz+x+y*iy+1]+=chrgs[i]
+              chrg[z*iz+x+y*iy+1]+=chrgs[k+i]
 	  } }
 	  adjc=0
 	  if ( substr(cfyl,1,4) != "nden" ) {
