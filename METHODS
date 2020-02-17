@@ -68,6 +68,7 @@
 #     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5Y.xvg 1 4 10 11
 #     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5L.xvg 1 4 10 11
 #     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5S.xvg 1 4 10 11
+# #!NOTE The above 11 lines can be invoked with source lchrgall.
 #     source ../jobs/Bfintegr8.awk 50 chrg5A.xvg
 #     source ../jobs/Bfintegr8.awk 50 chrg5H.xvg
 #     source ../jobs/Bfintegr8.awk 50 chrg5N.xvg
@@ -79,5 +80,11 @@
 #     source ../jobs/Bfintegr8.awk 50 chrg5Y.xvg
 #     source ../jobs/Bfintegr8.awk 50 chrg5L.xvg
 #     source ../jobs/Bfintegr8.awk 50 chrg5S.xvg
+#     for s in A H N P W S C R T L Y; do
+#       s ../jobs/spltfld. ${ARG2:0:1} ${s}
+#     done
+# #!NOTE The above 11 invocations of Bfintegr8.awk can be invoked with source integr8all.
+#     gnuplot -c plfldmaps
+#
 #     
 #_____________________________________________________
