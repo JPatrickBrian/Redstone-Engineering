@@ -1,0 +1,64 @@
+#!/bin/bash -l
+#=====================================================
+# lchrgall.  ### calculates charge files with parameters applicable to this particular ###
+#            ### simulation, parameters 2 & 4-7.                                       ###
+# parameters
+# $1         number of vertical bins
+#   options: typically 50 or 100
+#_____________________________________________________
+
+chr1=${2:-'50'} # how many pages?
+chr2='chrgs3.xvg' # which sim version?
+chr3=${2:0:1} # number for file character
+chr4='1' # which pore?
+chr5='4' # 11480 or 1148(4) waters?
+chr6='10' # alpha bath ions
+chr7='11' # beta bath ions
+
+case ${1} in
+  4A)
+    s ../jobs/chrgall. ${chr1} 3dchrg4A.awk ${chr2} chrg${chr3}A.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4H)
+    s ../jobs/chrgall. ${chr1} 3dchrg4H.awk ${chr2} chrg${chr3}H.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4N)
+    s ../jobs/chrgall. ${chr1} 3dchrg4N.awk ${chr2} chrg${chr3}N.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4P)
+    s ../jobs/chrgall. ${chr1} 3dchrg4P.awk ${chr2} chrg${chr3}P.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4W)
+    s ../jobs/chrgall. ${chr1} 3dchrg4W.awk ${chr2} chrg${chr3}W.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4R)
+    s ../jobs/chrgall. ${chr1} 3dchrg4R.awk ${chr2} chrg${chr3}R.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4T)
+    s ../jobs/chrgall. ${chr1} 3dchrg4T.awk ${chr2} chrg${chr3}T.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4Y)
+    s ../jobs/chrgall. ${chr1} 3dchrg4Y.awk ${chr2} chrg${chr3}Y.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4S)
+    s ../jobs/chrgall. ${chr1} 3dchrg4S.awk ${chr2} chrg${chr3}S.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4C)
+    s ../jobs/chrgall. ${chr1} 3dchrg4C.awk ${chr2} chrg${chr3}C.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  4L)
+    s ../jobs/chrgall. ${chr1} 3dchrg4L.awk ${chr2} chrg${chr3}L.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+  ;;
+  *)
+    s ../jobs/chrgall. ${chr1} 3dchrg4A.awk ${chr2} chrg${chr3}A.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4H.awk ${chr2} chrg${chr3}H.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4N.awk ${chr2} chrg${chr3}N.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4P.awk ${chr2} chrg${chr3}P.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4W.awk ${chr2} chrg${chr3}W.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4R.awk ${chr2} chrg${chr3}R.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4T.awk ${chr2} chrg${chr3}T.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4Y.awk ${chr2} chrg${chr3}Y.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4S.awk ${chr2} chrg${chr3}S.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4C.awk ${chr2} chrg${chr3}C.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+    s ../jobs/chrgall. ${chr1} 3dchrg4L.awk ${chr2} chrg${chr3}L.xvg ${chr4} ${chr5} ${chr6} ${chr7}
+esac
