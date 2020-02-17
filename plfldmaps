@@ -1,0 +1,46 @@
+#!/bin/bash -l
+#=======================================================
+# plfldmaps  ### plots the electric field maps     ###
+#            ###                                   ###
+# parameters
+# none       n/a
+#   options: n/a
+#_______________________________________________________
+
+set term pngcairo size 640,1160
+set view equal xyz
+set xrange [0:8]
+set yrange [0:8]
+set zrange [0:20]
+set xyplane 0
+set xtics 0,1 offset 0,-0.8
+set ytics 0,1 offset 1.5
+set ztics 0,2
+set view 87,10,1.28,1.28
+
+array fy[22]=["fylt5A","fyld5A","fylt5H","fyld5H","fylt5N","fyld5N","fylt5C","fyld5C","fylt5P","fyld5P","fylt5W","fyld5W","fylt5R","fyld5R","fylt5T","fyld5T","fylt5Y","fyld5Y","fylt5L","fyld5L","fylt5S","fyld5S"]
+array fn[22]=["fylt5A.xvg","fyld5A.xvg","fylt5H.xvg","fyld5H.xvg","fylt5N.xvg","fyld5N.xvg","fylt5C.xvg","fyld5C.xvg","fylt5P.xvg","fyld5P.xvg","fylt5W.xvg","fyld5W.xvg","fylt5R.xvg","fyld5R.xvg","fylt5T.xvg","fyld5T.xvg","fylt5Y.xvg","fyld5Y.xvg","fylt5L.xvg","fyld5L.xvg","fylt5S.xvg","fyld5S.xvg"]
+array a[22]=[307,28,19,154,26,66,159,160,17,56,167,310,31,31,31,31,31,31,31,31,31,31]
+array ti[11]=["Net Electric Flux","Ester Groups","Choline","Chlorine","Phosphate","Water","SCMTR Headgroup","SCMTR Tails","Lipid Tails","Lipids","Sodium"]
+
+array fact[2]=[1,3]
+array adju[2]=[1,0]
+array dgit[2]=["0","5"]
+
+do for [mult=0:1] {
+  do for [ofst=1:2] {
+
+    ft=fact[ofst]
+    ad=adju[ofst]
+
+    do for [i=1:11] {
+
+      fl="c08-9-05".dgit[mult+1]."-".fy[i*2-ad]
+      set output fl.".png"
+      set label 1 at screen 0.15,0.96 ti[i]
+      set label 2 at screen 0.7,0.96 fl
+      splot for [j=0:49] fy[i*2-ad].".xvg" index j every 1:1:0:0:440:0 u 1:2:($3+.2845):($5*a[i+mult*11]*ft):($6*a[i+mult*11]*ft):($7*a[i+mult*11]*ft):($4*a[i+mult*11]*23*ft) with vectors not lc var
+
+      pause 1
+      unset output
+} } }
