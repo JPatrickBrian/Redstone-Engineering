@@ -86,13 +86,13 @@
 # #!NOTE The above 11 invocations of Bfintegr8.awk can be invoked with source integr8all.
 #     gnuplot -c plfldmaps
 #            ###
-#            ### The resulting .png files need some explanation. The Net Electric Flux maps, which show the resulting field and
-#            ### for  every atom in the system. The greatest magnitude of this field is ~1/10 of the fields produced by the
-#            ### various moieties. To deal with these variances, the scale of the vector arrows are plotted by two different
-#            ### methods. The plots with the fyld* names show the electric field for that moiety and the plots with the fylt* names
-#            ### show the potential. The names that include the -050- tag are plotted at various scales to reveal the full range
-#            ### of the data of each moiety. The names that include the -055- tag are all plotted the same at 1/10 the scale of
-#            ### the Net Electric Field.
+#            ### The resulting .png files need some explanation. The Net Electric Flux maps show the resulting field and
+#            ### potential for every atom in the system. The greatest magnitude of this field roughly ~1/10 the fields
+#            ### produced by the various moieties. To deal with these variances, the scale of the vector arrows are plotted
+#            ### by two differen methods. The names that include the -050- tag are plotted at various scales to reveal the
+#            ### full range of the data of each moiety. The names that include the -055- tag are all plotted the same at
+#            ### 1/10 the scale of the Net Electric Field. The plots with the fyld* names show the electric field for that
+#            ### moiety and the plots with the fylt* names show the potential.  
 #            ###
 #            ### I have also uploaded some of the first images to come out of the computational x-ray work, but will delay
 #            ### providing the coding and procedures pending the publication of the first paper on the subject. 
