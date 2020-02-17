@@ -1,0 +1,19 @@
+#!/bin/bash -l
+#===================================================================================
+# spltfld.   ### splits electric field output file from Bfintegr8.awk into local ###
+#            ### and vector summed sections                                      ###
+# parameters
+# $1         vertical bins digit
+#   options: typically 5 (50) or 1 (100). Remember Bfintegr8.awk computational cost
+#            scales as N^6. For the lipid systems (~113000 atoms), ~106 takes about
+#            2 days to calculate. For now, that's my top end practical capability.
+# $2         Moiety Character
+#   options: A,H,N,P,W,S,C,R,T,Y,L
+#___________________________________________________________________________________
+
+if ! [ $#0 <> 2 ]; then
+  echo "Required vertical bins digit and moiety character not entered"
+else
+  head -n 22201 fylr${1}${2}.xvg > fyld${1}${2}.xvg
+  tail -n 22152 fylr${1}${2}.xvg > fylt${1}${2}.xvg
+fi
