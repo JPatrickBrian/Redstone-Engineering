@@ -38,8 +38,7 @@
 #     gmx select -f trajout.xtc -n index.ndx -s topol.tpr -os watersb.xvg -select 'dyn_mol_com of resname TIP3
 #            and ((z+.75) > (z of com of (group D2PC and name P)) and (z-.75) < (z of com of (group D2PC and name P)))'
 #     source ../jobs/cross.
-#     gnuplot ../jobs/cross1
-#     gnuplot ../jobs/cross0
+#     gnuplot -c ../jobs/cross
 #            ###
 #            ### The next steps make very accurate counts of membrane pore water molecules.
 #     source ../jobs/select. twatc
