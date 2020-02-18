@@ -1,0 +1,86 @@
+#=================================================================================
+# cross      ### plots simulation history of channel water during a simulation ###
+#            ### this script plots the data for both channels 0 & 1            ###
+# parameters
+# none       n/a
+#   options: n/a
+#_________________________________________________________________________________
+
+set term pngcairo size 800,600 font "helvetica,12"
+set tmargin 1
+set key top left maxrows 2
+set grid xtics mxtics ytics mytics y2tics my2tics
+set xlabel "Simulation Time (ns)"
+set ylabel "Pore Core H2O Molecules"
+set xrange [0:40]
+set yrange [0:400]
+set y2range [0:800]
+ca=system("awk '{print $1}' crossers.xvg")
+an=system("awk '{print sqrt(($2)^2)}' crossers.xvg")
+cal=sprintf(ca)." cation permeations"
+anl=sprintf(an)." anion permeations"
+NAME1="channel.".system(sprintf("pwd | rev | cut -f2 -d'/' - | rev")).".".system(sprintf("pwd | rev | cut -f1 -d'/' - | rev")).".0.png"
+set title NAME1 offset 29,-2.5
+set output NAME1
+CIMBL="chrg imbal +/- ".system(sprintf("tail -n 1 swapions.xvg | awk '{print sqrt(($2-$5)^2)}'"))." q"
+set label CIMBL at graph 0.02,0.88
+ch0w=system("awk '{printf(\"%4.2f\",$3)}' twat.std")
+ch0d=system("awk '{printf(\"%4.2f\",$3)}' twatt.std")
+ch0C=system("awk '{printf(\"%4.2f\",$1)}' tca.tot")
+ch0Cd=system("awk '{printf(\"%4.2f\",$1)}' tcat.tot")
+ch0A=system("awk '{printf(\"%4.2f\",$1)}' tan.tot")
+ch0Ad=system("awk '{printf(\"%4.2f\",$1)}' tant.tot")
+if (ca == 0) {ca=1;ch0C=0;ch0Cd=0}
+if (an == 0) {an=1;ch0A=0;ch0Ad=0}
+pt0C="perm tm p C ".sprintf("%.2f",ch0C*.02/ca)
+pt0Cd="perm tm t C ".sprintf("%.2f",ch0Cd*.02/ca)
+pt0A="perm tm p A ".sprintf("%.2f",ch0A*.02/an)
+pt0Ad="perm tm t A ".sprintf("%.2f",ch0Ad*.02/an)
+AVGWT="avg core molcs ".sprintf(ch0w)
+AVGWTd="avg thrt molcs ".sprintf(ch0d)
+set label AVGWT at graph 0.02,0.83
+set label AVGWTd at graph 0.02,0.78
+set label pt0C at graph 0.36,0.83
+set label pt0Cd at graph 0.36,0.78
+set label pt0A at graph 0.71,0.83
+set label pt0Ad at graph 0.71,0.78
+pl "twatt.xvg" u ($1/1000):2 title "1/2 of chnl 0 thrt H2O" w l lw 1 lc 2 axes x1y2, "twat.xvg" u ($1/1000):2 title "chnl 0 core H2O" with lines lw 1 lc rgb "#9400D3", "ch0+AB.xvg" u ($1/1000):(80) title cal w impulses lc rgb "#FF0000", "ch0-AB.xvg" u ($1/1000):(40) title anl w impulses lc rgb "#00FF00"
+
+reset session
+set tmargin 1
+set key top left maxrows 2
+set grid xtics mxtics ytics mytics y2tics my2tics
+set xlabel "Simulation Time (ns)"
+set ylabel "Pore Core H2O Molecules"
+set yrange [0:400]
+set y2range [0:800]
+ca=system("awk '{print $3}' crossers.xvg")
+an=system("awk '{print sqrt(($4)^2)}' crossers.xvg")
+cal=sprintf(ca)." cation permeations"
+anl=sprintf(an)." anion permeations"
+NAME1="channel.".system(sprintf("pwd | rev | cut -f2 -d'/' - | rev")).".".system(sprintf("pwd | rev | cut -f1 -d'/' - | rev")).".1.png"
+set title NAME1 offset 29,-2.5
+set output NAME1
+CIMBL="chrg imbal +/- ".system(sprintf("tail -n 1 swapions.xvg | awk '{print sqrt(($2-$5)^2)}'"))." q"
+set label CIMBL at graph 0.02,0.88
+ch1w=system("awk '{printf(\"%4.2f\",$3)}' bwat.std")
+ch1d=system("awk '{printf(\"%4.2f\",$3)}' bwatt.std")
+ch1C=system("awk '{printf(\"%4.2f\",$1)}' bca.tot")
+ch1Cd=system("awk '{printf(\"%4.2f\",$1)}' bcat.tot")
+ch1A=system("awk '{printf(\"%4.2f\",$1)}' ban.tot")
+ch1Ad=system("awk '{printf(\"%4.2f\",$1)}' bant.tot")
+if (ca == 0) {ca=1;ch1C=0;ch1Cd=0}
+if (an == 0) {an=1;ch1A=0;ch1Ad=0}
+pt1C="perm tm p C ".sprintf("%.2f",ch1C*.02/ca)
+pt1Cd="perm tm t C ".sprintf("%.2f",ch1Cd*.02/ca)
+pt1A="perm tm p A ".sprintf("%.2f",ch1A*.02/an)
+pt1Ad="perm tm t A ".sprintf("%.2f",ch1Ad*.02/an)
+AVGWT="avg core molcs ".sprintf(ch1w)
+AVGWTd="avg thrt molcs ".sprintf(ch1d)
+set label AVGWT at graph 0.02,0.83
+set label AVGWTd at graph 0.02,0.78
+set label pt1C at graph 0.36,0.83
+set label pt1Cd at graph 0.36,0.78
+set label pt1A at graph 0.71,0.83
+set label pt1Ad at graph 0.71,0.78
+pl "bwatt.xvg" u ($1/1000):2 title "1/2 of chnl 1 thrt H2O" w l lw 1 lc 2 axes x1y2, "bwat.xvg" u ($1/1000):2 title "chnl 1 core H2O" with lines lw 1 lc rgb "#9400D3", "ch1+AB.xvg" u ($1/1000):(80) title cal w impulses lc rgb "#FF0000", "ch1-AB.xvg" u ($1/1000):(40) title anl w impulses lc rgb "#00FF00"
