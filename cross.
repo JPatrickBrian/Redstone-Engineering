@@ -1,0 +1,20 @@
+#!/bin/bash -l
+#=====================================================
+# cross.     ### extracts the counts of ions that  ###
+#            ### have crossed thru the membrane    ###
+# parameters
+# none       n/a
+#   options: n/a
+#_____________________________________________________
+
+if [ -s ch0+AB.xvg ]; then rm ch0+AB.xvg; fi
+if [ -s ch0-AB.xvg ]; then rm ch0-AB.xvg; fi
+if [ -s ch1+AB.xvg ]; then rm ch1+AB.xvg; fi
+if [ -s ch1-AB.xvg ]; then rm ch1-AB.xvg; fi
+
+tail -n +63 swapions.xvg | grep -A 1 finished | grep -v finished | cut -c1-12,179-182 | grep "\-\-" -v | uniq -s 13 | grep -v "   0" | sort -k 2 | uniq -f 1 > ch0+AB.xvg
+tail -n +63 swapions.xvg | grep -A 1 finished | grep -v finished | cut -c1-12,189-192 | grep "\-\-" -v | uniq -s 13 | grep -v "   0" | sort -k 2 | uniq -f 1 > ch0-AB.xvg
+tail -n +63 swapions.xvg | grep -A 1 finished | grep -v finished | cut -c1-12,159-162 | grep "\-\-" -v | uniq -s 13 | grep -v "   0" | sort -k 2 | uniq -f 1 > ch1+AB.xvg
+tail -n +63 swapions.xvg | grep -A 1 finished | grep -v finished | cut -c1-12,169-172 | grep "\-\-" -v | uniq -s 13 | grep -v "   0" | sort -k 2 | uniq -f 1 > ch1-AB.xvg
+
+tail -n 1 swapions.xvg | awk -F " " '{print $18 " " $19 " " $16 " " $17}' > crossers.xvg
