@@ -11,7 +11,7 @@
 #            resolution and computational time of both steps is required subject
 #            to the requirements and limitations of each system on which it is used.
 #            higher resolutions can be produced here if the intention is to
-#            produce computational x-rays since they in incure negligible scaling
+#            produce computational x-rays since they incure negligible scaling
 # $2         name of file containing charges of each atom in system
 # $3         output filname containing bins of average charge for each system volume
 #            element
