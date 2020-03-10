@@ -57,16 +57,16 @@
 #     source ../jobs/center. 0
 #     gmx trajectory -f trajout0c.xtc -ox coord.xvg -n index.ndx < <(echo -e 'System\n')
 #     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5A.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5H.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5N.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5C.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5P.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5W.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5R.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5T.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5Y.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5L.xvg 1 4 10 11
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5S.xvg 1 4 10 11
+#     source ../jobs/3dchrg4H.awk 50 chrgs3.xvg chrg5H.xvg 1 4 10 11
+#     source ../jobs/3dchrg4N.awk 50 chrgs3.xvg chrg5N.xvg 1 4 10 11
+#     source ../jobs/3dchrg4C.awk 50 chrgs3.xvg chrg5C.xvg 1 4 10 11
+#     source ../jobs/3dchrg4P.awk 50 chrgs3.xvg chrg5P.xvg 1 4 10 11
+#     source ../jobs/3dchrg4W.awk 50 chrgs3.xvg chrg5W.xvg 1 4 10 11
+#     source ../jobs/3dchrg4R.awk 50 chrgs3.xvg chrg5R.xvg 1 4 10 11
+#     source ../jobs/3dchrg4T.awk 50 chrgs3.xvg chrg5T.xvg 1 4 10 11
+#     source ../jobs/3dchrg4Y.awk 50 chrgs3.xvg chrg5Y.xvg 1 4 10 11
+#     source ../jobs/3dchrg4L.awk 50 chrgs3.xvg chrg5L.xvg 1 4 10 11
+#     source ../jobs/3dchrg4S.awk 50 chrgs3.xvg chrg5S.xvg 1 4 10 11
 # #!NOTE The above 11 lines can be invoked with source lchrgall.
 #     source ../jobs/Bfintegr8.awk 50 chrg5A.xvg
 #     source ../jobs/Bfintegr8.awk 50 chrg5H.xvg
