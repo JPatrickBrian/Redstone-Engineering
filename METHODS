@@ -56,7 +56,7 @@
 #            ### conflict if both pores were analyzed simultaneously.
 #     source ../jobs/center. 0
 #     gmx trajectory -f trajout0c.xtc -ox coord.xvg -n index.ndx < <(echo -e 'System\n')
-#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5A.xvg 1 4 10 11
+#     source ../jobs/3dchrg4A.awk 50 chrgs3.xvg chrg5A.xvg
 #     source ../jobs/3dchrg4H.awk 50 chrgs3.xvg chrg5H.xvg 1 4 10 11
 #     source ../jobs/3dchrg4N.awk 50 chrgs3.xvg chrg5N.xvg 1 4 10 11
 #     source ../jobs/3dchrg4C.awk 50 chrgs3.xvg chrg5C.xvg 1 4 10 11
