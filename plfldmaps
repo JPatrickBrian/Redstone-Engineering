@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/usr/bin/gnuplot
 #=====================================================
 # plfldmaps  ### plots the electric field and      ###
 #            ### potential maps                    ###
