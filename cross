@@ -1,3 +1,4 @@
+#!/bin/bash -l
 #=================================================================================
 # cross      ### plots simulation history of channel water during a simulation ###
 #            ### this script plots the data for both channels 0 & 1            ###
